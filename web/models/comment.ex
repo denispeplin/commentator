@@ -15,4 +15,9 @@ defmodule Commentator.Comment do
     |> cast(params, [:body])
     |> validate_required([:body])
   end
+
+  def ordered(query) do
+    from q in query,
+      order_by: [desc: q.id]
+  end
 end

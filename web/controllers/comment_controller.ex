@@ -4,13 +4,9 @@ defmodule Commentator.CommentController do
   alias Commentator.Comment
 
   def index(conn, _params) do
-    comments = Repo.all(Comment)
-    render(conn, "index.html", comments: comments)
-  end
-
-  def new(conn, _params) do
     changeset = Comment.changeset(%Comment{})
-    render(conn, "new.html", changeset: changeset)
+    comments = Comment |> Comment.ordered |> Repo.all
+    render(conn, "index.html", %{comments: comments, changeset: changeset})
   end
 
   def create(conn, %{"comment" => comment_params}) do

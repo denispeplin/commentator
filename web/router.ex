@@ -17,7 +17,7 @@ defmodule Commentator.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/comments", CommentController
+    resources "/comments", CommentController, except: [:new]
   end
 
   # Other scopes may use custom stacks.
