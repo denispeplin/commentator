@@ -2,7 +2,7 @@ defmodule Commentator.Router do
   use Commentator.Web, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "js"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery

@@ -13,12 +13,11 @@ defmodule Commentator.CommentController do
     changeset = Comment.changeset(%Comment{}, comment_params)
 
     case Repo.insert(changeset) do
-      {:ok, _comment} ->
-        conn
-        |> put_flash(:info, "Comment created successfully.")
-        |> redirect(to: comment_path(conn, :index))
+      {:ok, comment} ->
+        changeset = Comment.changeset(%Comment{})
+        render(conn, "create.js", comment: comment, changeset: changeset)
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.js", changeset: changeset)
     end
   end
 

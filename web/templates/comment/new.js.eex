@@ -1,0 +1,1 @@
+$("form#comment").html("<%= escape_javascript(render("form.html", changeset: @changeset, action: comment_path(@conn, :create))) %>");
