@@ -38,5 +38,7 @@ defmodule Commentator.Endpoint do
     key: "_commentator_key",
     signing_salt: "2+Gwi5S/"
 
+  plug CORSPlug
+
   plug Commentator.Router
 end

@@ -1,7 +1,7 @@
 <h2>Listing comments</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: comment_path(@conn, :create) %>
+                        action: comment_url(@conn, :create) %>
 
 <table class="table" id="comments">
   <thead>
