@@ -2,7 +2,6 @@
   <td><%= @comment.body %></td>
 
   <td class="text-right">
-    <%= link "Show", to: comment_path(@conn, :show, @comment), class: "btn btn-default btn-xs" %>
     <%= link "Edit", to: comment_path(@conn, :edit, @comment), class: "btn btn-default btn-xs" %>
     <%= link "Delete", to: comment_path(@conn, :delete, @comment), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
   </td>

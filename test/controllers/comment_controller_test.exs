@@ -23,18 +23,6 @@ defmodule Commentator.CommentControllerTest do
     assert response(conn, 200) =~ "$(\"form#comment\").html"
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    comment = Repo.insert! %Comment{}
-    conn = get conn, comment_path(conn, :show, comment)
-    assert html_response(conn, 200) =~ "Show comment"
-  end
-
-  test "renders page not found when id is nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, comment_path(conn, :show, -1)
-    end
-  end
-
   test "renders form for editing chosen resource", %{conn: conn} do
     comment = Repo.insert! %Comment{}
     conn = get conn, comment_path(conn, :edit, comment)
@@ -44,7 +32,7 @@ defmodule Commentator.CommentControllerTest do
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
     comment = Repo.insert! %Comment{}
     conn = put conn, comment_path(conn, :update, comment), comment: @valid_attrs
-    assert redirected_to(conn) == comment_path(conn, :show, comment)
+    assert redirected_to(conn) == comment_path(conn, :index)
     assert Repo.get_by(Comment, @valid_attrs)
   end
 
