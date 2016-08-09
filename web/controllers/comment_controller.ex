@@ -48,8 +48,6 @@ defmodule Commentator.CommentController do
     # it to always work (and if it does not, it will raise).
     Repo.delete!(comment)
 
-    conn
-    |> put_flash(:info, "Comment deleted successfully.")
-    |> redirect(to: comment_path(conn, :index))
+    render(conn, "delete.js", id: id)
   end
 end
