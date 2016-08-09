@@ -1,0 +1,2 @@
+$("#comment_<%= @comment.id %>").replaceWith("<%= escape_javascript(render("comment.html", conn: @conn, comment: @comment)) %>");
+$("#comment_<%= @comment.id %>").hide().show("slow");

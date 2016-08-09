@@ -24,7 +24,7 @@ defmodule Commentator.CommentController do
   def edit(conn, %{"id" => id}) do
     comment = Repo.get!(Comment, id)
     changeset = Comment.changeset(comment)
-    render(conn, "edit.html", comment: comment, changeset: changeset)
+    render(conn, "edit.js", comment: comment, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "comment" => comment_params}) do
@@ -32,12 +32,10 @@ defmodule Commentator.CommentController do
     changeset = Comment.changeset(comment, comment_params)
 
     case Repo.update(changeset) do
-      {:ok, _comment} ->
-        conn
-        |> put_flash(:info, "Comment updated successfully.")
-        |> redirect(to: comment_path(conn, :index))
+      {:ok, comment} ->
+        render(conn, "update.js", comment: comment)
       {:error, changeset} ->
-        render(conn, "edit.html", comment: comment, changeset: changeset)
+        render(conn, "edit.js", comment: comment, changeset: changeset)
     end
   end
 
