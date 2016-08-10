@@ -1,1 +1,8 @@
-$("#comment_<%= @comment.id %> .edit-container").html("<%= escape_javascript(render("form.html", changeset: @changeset, action: comment_path(@conn, :update, @comment))) %>");
+$("#comment_<%= @comment.id %> .edit-container").html("<%= escape_javascript(render("form.html", changeset: @changeset, action: comment_path(@conn, :update, @comment), comment: @comment)) %>");
+$(".cancel-edit").on("confirm:complete", function (e, answer) {
+  if (answer) {
+    // copy from update.js.eex
+    $("#comment_<%= @comment.id %>").replaceWith("<%= escape_javascript(render("comment.html", conn: @conn, comment: @comment)) %>");
+    $("#comment_<%= @comment.id %>").hide().show("slow");
+  }
+});

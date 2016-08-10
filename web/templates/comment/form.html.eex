@@ -12,5 +12,8 @@
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
+    <%= if assigns[:comment] do %>
+      <%= link "Cancel", to: "#", data: [confirm: "Are you sure?"], class: "btn btn-default cancel-edit" %>
+    <% end %>
   </div>
 <% end %>
