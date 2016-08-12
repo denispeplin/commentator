@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/denispeplin/commentator.svg?branch=remote_links)](https://travis-ci.org/denispeplin/commentator)
+
 # Commentator
 
 To start your Phoenix app:
