@@ -26,26 +26,32 @@ defmodule Commentator.CommentControllerTest do
   test "renders form for editing chosen resource", %{conn: conn} do
     comment = Repo.insert! %Comment{}
     conn = get conn, comment_path(conn, :edit, comment)
-    assert html_response(conn, 200) =~ "Edit comment"
+    assert response_content_type(conn, :javascript) =~ "charset=utf-8"
+    assert response(conn, 200) =~ "$(\"#comment_#{comment.id} .edit-container\").html"
+    assert response(conn, 200) =~ "$(\"#comment_#{comment.id}\").replaceWith"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
     comment = Repo.insert! %Comment{}
     conn = put conn, comment_path(conn, :update, comment), comment: @valid_attrs
-    assert redirected_to(conn) == comment_path(conn, :index)
+    assert response_content_type(conn, :javascript) =~ "charset=utf-8"
+    assert response(conn, 200) =~ "$(\"#comment_#{comment.id}\").replaceWith"
     assert Repo.get_by(Comment, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     comment = Repo.insert! %Comment{}
     conn = put conn, comment_path(conn, :update, comment), comment: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit comment"
+    assert response_content_type(conn, :javascript) =~ "charset=utf-8"
+    assert response(conn, 200) =~ "$(\"#comment_#{comment.id} .edit-container\").html"
   end
 
   test "deletes chosen resource", %{conn: conn} do
     comment = Repo.insert! %Comment{}
     conn = delete conn, comment_path(conn, :delete, comment)
-    assert redirected_to(conn) == comment_path(conn, :index)
+    assert response_content_type(conn, :javascript) =~ "charset=utf-8"
+    assert response(conn, 200) =~ "var comment = $(\"#comment_#{comment.id}\");"
+    assert response(conn, 200) =~ "comment.remove()"
     refute Repo.get(Comment, comment.id)
   end
 end
